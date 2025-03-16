@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import StaffPicks from "./StaffPicks";
 import RecommendedTopics from "./RecommendedTopics";
 import WhoToFollow from "./WhoToFollow";
+import ReadingList from "./ReadingList";
 
 const RightSidebar = () => {
   return (
@@ -9,6 +10,7 @@ const RightSidebar = () => {
       <StaffPicks />
       <RecommendedTopics />
       <WhoToFollow />
+      <ReadingList />
     </Box>
   );
 };
