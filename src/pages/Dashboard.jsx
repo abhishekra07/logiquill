@@ -27,6 +27,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { useState, useRef } from "react";
 import PostCard from "../components/PostCard";
+import { useNavigate } from "react-router-dom";
 
 // Sample Categories & Posts
 const categories = [
@@ -82,6 +83,7 @@ const posts = [
 ];
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -145,7 +147,12 @@ const Dashboard = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Button startIcon={<Edit />} variant="contained" color="primary">
+            <Button
+              startIcon={<Edit />}
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/new-story")}
+            >
               Write
             </Button>
             <IconButton>

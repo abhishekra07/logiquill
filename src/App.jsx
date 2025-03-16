@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { Box, CircularProgress } from "@mui/material";
 import Home from "./pages/Home";
+import NewStory from "./pages/NewStory";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth(); // Get loading state
@@ -47,6 +48,7 @@ const App = () => (
             </ProtectedRoute>
           }
         />
+        <Route path="/new-story" element={<NewStory />} />
       </Routes>
     </Router>
   </AuthProvider>
