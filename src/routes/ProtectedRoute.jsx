@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { Box, CircularProgress } from "@mui/material";
 
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth(); // Get loading state
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
       >
         <CircularProgress />
       </Box>
-    ); // Show loading spinner while Firebase checks auth
+    );
   }
 
   return user ? children : <Navigate to="/signin" />;
