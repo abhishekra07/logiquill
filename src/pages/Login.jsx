@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 import SocialLoginButtons from "../components/SocialLoginButtons";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-
+import { useAuth } from "../context/AuthContext";
 const Login = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
