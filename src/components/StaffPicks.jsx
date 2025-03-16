@@ -9,6 +9,12 @@ const StaffPicks = () => {
       <Typography variant="body2" sx={{ mt: 1 }}>
         The highly specialized wisdom of “what if”
       </Typography>
+      <Typography variant="body2" sx={{ mt: 1 }}>
+        The highly specialized wisdom of “what if”
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 1 }}>
+        The highly specialized wisdom of “what if”
+      </Typography>
     </Paper>
   );
 };

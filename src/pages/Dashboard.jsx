@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileMenu from "../components/ProfileMenu";
 import CategoryList from "../components/CategoryList";
 import PostList from "../components/PostList";
-import StaffPicks from "../components/StaffPicks";
+import RightSidebar from "../components/RightSidebar";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const Dashboard = () => {
 
           {/* Right Side - Staff Picks */}
           <Grid item xs={4}>
-            <StaffPicks />
+            <RightSidebar />
           </Grid>
         </Grid>
       </Container>

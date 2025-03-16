@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   AppBar,
   Toolbar,
@@ -13,13 +13,34 @@ import {
 import { Notifications } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Get user info
+import { useAuth } from "../context/AuthContext";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
+
+const toolbarOptions = [
+  [{ header: [1, 2, 3, false] }],
+  ["bold", "italic", "underline", "strike"],
+  [{ list: "ordered" }, { list: "bullet" }],
+  ["link", "image"],
+  ["blockquote", "code-block"],
+];
 
 const NewStory = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+  // Save draft automatically (Optional)
+  const handleAutoSave = useCallback(() => {
+    console.log("Auto-saving draft:", { title, body });
+    // TODO: Implement auto-save logic
+  }, [title, body]);
+
+  const handlePublish = () => {
+    console.log("Publishing Story:", { title, body });
+    // TODO: Save story to the database
+  };
 
   return (
     <Box
@@ -38,12 +59,12 @@ const NewStory = () => {
               LogiQuill
             </Typography>
             <Typography variant="body1">
-              Draft in {user?.email.substring(0, 6) || "Unknown"}{" "}
+              Draft in {user?.email?.split("@")[0] || "Unknown"}{" "}
               <span style={{ color: "gray" }}>Saved</span>
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Button variant="contained" color="success">
+            <Button variant="contained" color="success" onClick={handlePublish}>
               Publish
             </Button>
             <IconButton onClick={() => navigate("/dashboard")}>
@@ -78,27 +99,20 @@ const NewStory = () => {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          onBlur={handleAutoSave}
           InputProps={{ sx: { fontSize: "2.5rem", fontWeight: "bold", p: 1 } }}
         />
 
-        {/* Body Input - Expands to full screen */}
-        <Box sx={{ flex: 1, mt: 2 }}>
-          <TextField
-            variant="standard"
-            fullWidth
-            multiline
-            placeholder="Write your story..."
+        {/* Rich Text Editor for Story Body */}
+        <Box sx={{ flex: 1, mt: 2, height: "60vh" }}>
+          <ReactQuill
+            theme="snow"
             value={body}
-            onChange={(e) => setBody(e.target.value)}
-            InputProps={{
-              disableUnderline: true,
-              sx: { fontSize: "1.25rem", lineHeight: "1.6", p: 1 },
-            }}
-            sx={{
-              width: "100%",
-              minHeight: "60vh",
-              "& textarea": { height: "100%" },
-            }}
+            onChange={setBody}
+            placeholder="Write your story..."
+            modules={{ toolbar: toolbarOptions }}
+            style={{ height: "100%" }}
+            onBlur={handleAutoSave}
           />
         </Box>
       </Container>
